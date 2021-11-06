@@ -9,7 +9,7 @@ final class OperationAwaitingTests : XCTestCase {
 	func testStartNoResult() async throws {
 		let startDate = Date()
 		await AsyncOperation().startAsync()
-		XCTAssertLessThanOrEqual(startDate.timeIntervalSinceNow, -1)
+		XCTAssertLessThanOrEqual(startDate.timeIntervalSinceNow, -0.25)
 	}
 	
 	func testStartWithResult() async throws {

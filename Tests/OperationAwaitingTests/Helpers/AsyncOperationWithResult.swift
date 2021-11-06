@@ -19,7 +19,7 @@ class AsyncOperationWithResult : RetryingOperation, HasResult {
 	}
 	
 	override func startBaseOperation(isRetry: Bool) {
-		DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(1), execute: {
+		DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(250), execute: {
 			self.result = .success(self.destination)
 			self.baseOperationEnded()
 		})
