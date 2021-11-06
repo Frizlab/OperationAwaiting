@@ -4,7 +4,7 @@ import PackageDescription
 
 let package = Package(
 	name: "OperationAwaiting",
-	platforms: [.macOS(.v12)],
+	platforms: [.macOS(.v12), .iOS(.v15), .tvOS(.v15), .watchOS(.v8)],
 	products: [.library(name: "OperationAwaiting", targets: ["OperationAwaiting"])],
 	dependencies: [
 		.package(url: "https://github.com/happn-tech/RetryingOperation.git", from: "1.1.7")
