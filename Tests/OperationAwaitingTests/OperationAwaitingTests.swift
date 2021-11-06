@@ -4,7 +4,7 @@ import XCTest
 
 
 
-final class OperationAwaitingTests: XCTestCase {
+final class OperationAwaitingTests : XCTestCase {
 	
 	func testStartNoResult() async throws {
 		let startDate = Date()
@@ -29,6 +29,7 @@ final class OperationAwaitingTests: XCTestCase {
 	}
 	
 }
+
 
 extension Result {
 	
