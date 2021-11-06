@@ -1,0 +1,4 @@
+= AwaitOperation
+François Lamboley <fload@me.com>
+
+Async/await support for Foundation’s `Operation`.
