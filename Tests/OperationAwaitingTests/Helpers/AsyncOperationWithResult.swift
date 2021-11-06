@@ -1,7 +1,9 @@
 import Foundation
 
-import OperationAwaiting
+import HasResult
 import RetryingOperation
+
+import OperationAwaiting
 
 
 

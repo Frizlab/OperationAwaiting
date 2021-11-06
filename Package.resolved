@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "HasResult",
+        "repositoryURL": "https://github.com/Frizlab/HasResult.git",
+        "state": {
+          "branch": null,
+          "revision": "a6eb60f65e33f9fb3ad425fea0838a05e298f270",
+          "version": "1.0.0"
+        }
+      },
+      {
         "package": "RetryingOperation",
         "repositoryURL": "https://github.com/happn-tech/RetryingOperation.git",
         "state": {
