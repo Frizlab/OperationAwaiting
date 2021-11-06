@@ -1,6 +1,6 @@
 import Foundation
 
-import AwaitOperation
+import OperationAwaiting
 import RetryingOperation
 
 

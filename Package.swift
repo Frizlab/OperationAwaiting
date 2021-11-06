@@ -3,16 +3,16 @@ import PackageDescription
 
 
 let package = Package(
-	name: "AwaitOperation",
+	name: "OperationAwaiting",
 	platforms: [.macOS(.v12)],
-	products: [.library(name: "AwaitOperation", targets: ["AwaitOperation"])],
+	products: [.library(name: "OperationAwaiting", targets: ["OperationAwaiting"])],
 	dependencies: [
 		.package(url: "https://github.com/happn-tech/RetryingOperation.git", from: "1.1.7")
 	],
 	targets: [
-		.target(name: "AwaitOperation"),
-		.testTarget(name: "AwaitOperationTests", dependencies: [
-			"AwaitOperation",
+		.target(name: "OperationAwaiting"),
+		.testTarget(name: "OperationAwaitingTests", dependencies: [
+			"OperationAwaiting",
 			/* Convenience to create async operations. */
 			.product(name: "RetryingOperation", package: "RetryingOperation")
 		])

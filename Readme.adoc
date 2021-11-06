@@ -1,4 +1,4 @@
-= AwaitOperation
+= OperationAwaiting
 François Lamboley <fload@me.com>
 
-Async/await support for Foundation’s `Operation`.
+(A)waiting support for a Foundation’s `Operation`.

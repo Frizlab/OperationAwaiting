@@ -1,10 +1,10 @@
 import XCTest
 
-@testable import AwaitOperation
+@testable import OperationAwaiting
 
 
 
-final class AwaitOperationTests: XCTestCase {
+final class OperationAwaitingTests: XCTestCase {
 	
 	func testStartNoResult() async throws {
 		let startDate = Date()
