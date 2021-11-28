@@ -23,7 +23,7 @@ public extension Operation {
 
 public extension HasResult where Self : Operation {
 	
-	func startAsync() async throws -> ResultType {
+	func startAsyncGetResult() async throws -> ResultType {
 		assert(completionBlock == nil, "Async support for Operation, as implemented, requires the completion block to be left nil.")
 		return try await withTaskCancellationHandler(handler: { cancel() }, operation: {
 			try await withCheckedThrowingContinuation{ (continuation: CheckedContinuation<ResultType, Error>) -> Void in

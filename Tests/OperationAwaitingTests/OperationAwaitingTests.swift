@@ -20,7 +20,7 @@ final class OperationAwaitingTests : XCTestCase {
 		XCTAssert(operation.result.failure is AsyncOperationWithResult.NotFinished)
 		
 		let task = Task<String, Error>{
-			return try await operation.startAsync()
+			return try await operation.startAsyncGetResult()
 		}
 		XCTAssertNil(operation.result.success)
 		
