@@ -2,3 +2,39 @@
 François Lamboley <fload@me.com>
 
 (A)waiting support for a Foundation’s `Operation`.
+
+== Example of Use
+
+[source,swift]
+----
+struct OperationNotStarted : Error {}
+
+final class MyOperation : Operation, HasResult {
+   
+   var result: Result<Int, Error> = .failure(OperationNotStarted())
+   
+   override func main() {
+      result = .success(42)
+   }
+   
+}
+
+let q = OperationQueue()
+let op = MyOperation()
+/* op.result is a failure, set to OperationNotStarted() */
+let r = try await q.addOperationAndGetResult(op)
+/* op.result is now a success, equal to r (equal to 42) */
+----
+
+== About the Naming of the Functions
+
+All functions have a short name (which might be ambiguous) and a longer non-ambiguous name.
+
+_Example_: The `start` and `startAndGetResult` methods.
+When the context is clear, Swift can guess the `start` method you want to call is the one on an `Operation` which conforms to `HasResult` and you want to fetch the result of the operation when it’s done.
+However it does not always work.
+In particular, this code would set the variable to `()` even if `op` conforms to `HasResult`:
+[source,swift]
+----
+let r = try await op.start()
+----
