@@ -31,7 +31,7 @@ final class OperationAwaitingTests : XCTestCase {
 	
 	func testStartNoResult() async throws {
 		let startDate = Date()
-		await AsyncOperation().start()
+		await AsyncOperation().startAndWait()
 		XCTAssertLessThanOrEqual(startDate.timeIntervalSinceNow, -0.25)
 	}
 	
@@ -43,7 +43,7 @@ final class OperationAwaitingTests : XCTestCase {
 		XCTAssert(operation.result.failure is AsyncOperationWithResult.NotFinished)
 		
 		let task = Task<String, Error>{
-			return try await operation.start()
+			return try await operation.startAndGetResult()
 		}
 		XCTAssertNil(operation.result.success)
 		
