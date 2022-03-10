@@ -8,7 +8,7 @@ let package = Package(
 	products: [.library(name: "OperationAwaiting", targets: ["OperationAwaiting"])],
 	dependencies: [
 		.package(url: "https://github.com/Frizlab/HasResult.git", from: "1.0.0"),
-		.package(url: "https://github.com/happn-tech/RetryingOperation.git", from: "1.1.7")
+		.package(url: "https://github.com/happn-app/RetryingOperation.git", from: "1.1.7")
 	],
 	targets: [
 		.target(name: "OperationAwaiting", dependencies: [
