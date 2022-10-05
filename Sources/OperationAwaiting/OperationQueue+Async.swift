@@ -11,14 +11,14 @@ public extension OperationQueue {
 	 
 	 If the current task is cancelled, the operation will be cancelled too. */
 	func addOperationAndWait(_ op: Operation) async {
-		await withTaskCancellationHandler(handler: { op.cancel() }, operation: {
+		await withTaskCancellationHandler(operation: {
 			await withCheckedContinuation{ (continuation: CheckedContinuation<Void, Never>) -> Void in
 				let completionOperation = BlockOperation{ continuation.resume() }
 				completionOperation.addDependency(op)
 				
 				addOperations([op, completionOperation], waitUntilFinished: false)
 			}
-		})
+		}, onCancel: { op.cancel() })
 	}
 	
 	/**
@@ -26,14 +26,14 @@ public extension OperationQueue {
 	 
 	 If the current task is cancelled, all of the operations will be cancelled too. */
 	func addOperationsAndWait(_ ops: [Operation]) async {
-		await withTaskCancellationHandler(handler: { ops.forEach{ $0.cancel() } }, operation: {
+		await withTaskCancellationHandler(operation: {
 			await withCheckedContinuation{ (continuation: CheckedContinuation<Void, Never>) -> Void in
 				let completionOperation = BlockOperation{ continuation.resume() }
 				for op in ops {completionOperation.addDependency(op)}
 				
 				addOperations(ops + [completionOperation], waitUntilFinished: false)
 			}
-		})
+		}, onCancel: { ops.forEach{ $0.cancel() } })
 	}
 	
 	/**
@@ -41,14 +41,14 @@ public extension OperationQueue {
 	 
 	 If the current task is cancelled, the operation will be cancelled too. */
 	func addOperationAndGetResult<O : Operation>(_ op: O) async throws -> O.ResultType where O : HasResult {
-		return try await withTaskCancellationHandler(handler: { op.cancel() }, operation: {
+		return try await withTaskCancellationHandler(operation: {
 			try await withCheckedThrowingContinuation{ (continuation: CheckedContinuation<O.ResultType, Error>) -> Void in
 				let completionOperation = BlockOperation{ continuation.resume(with: op.result) }
 				completionOperation.addDependency(op)
 				
 				addOperations([op, completionOperation], waitUntilFinished: false)
 			}
-		})
+		}, onCancel: { op.cancel() })
 	}
 	
 	/**
@@ -57,14 +57,14 @@ public extension OperationQueue {
 	 
 	 If the current task is cancelled, all of the operations will be cancelled too. */
 	func addOperationsAndGetResults<O : Operation>(_ ops: [O]) async -> [Result<O.ResultType, Error>] where O : HasResult {
-		return await withTaskCancellationHandler(handler: { ops.forEach{ $0.cancel() } }, operation: {
+		return await withTaskCancellationHandler(operation: {
 			await withCheckedContinuation{ (continuation: CheckedContinuation<[Result<O.ResultType, Error>], Never>) -> Void in
 				let completionOperation = BlockOperation{ continuation.resume(returning: ops.map{ $0.result }) }
 				for op in ops {completionOperation.addDependency(op)}
 				
 				addOperations(ops + [completionOperation], waitUntilFinished: false)
 			}
-		})
+		}, onCancel: { ops.forEach{ $0.cancel() } })
 	}
 	
 }
