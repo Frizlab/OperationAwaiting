@@ -11,9 +11,14 @@ final class OperationAwaitingTests : XCTestCase {
 	func testReadmeExample() async throws {
 		struct OperationNotStarted : Error {}
 		
-		final class MyOperation : Operation, HasResult {
+		final class MyOperation : Operation, @unchecked Sendable, SendableOperation, HasResult {
 			
-			var result: Result<Int, Error> = .failure(OperationNotStarted())
+			private var lock = NSLock()
+			private var _result: Result<Int, Error> = .failure(OperationNotStarted())
+			var result: Result<Int, Error> {
+				get {lock.withLock{ _result }}
+				set {lock.withLock{ _result = newValue }}
+			}
 			
 			override func main() {
 				result = .success(42)

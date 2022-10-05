@@ -4,7 +4,7 @@ import HasResult
 
 
 
-public extension Operation {
+public extension SendableOperation {
 	
 	func startAndWait() async {
 		assert(completionBlock == nil, "Async support for Operation, as implemented, requires the completion block to be left nil.")
@@ -19,7 +19,7 @@ public extension Operation {
 }
 
 
-public extension HasResult where Self : Operation {
+public extension HasResult where Self : SendableOperation {
 	
 	func startAndGetResult() async throws -> ResultType {
 		assert(completionBlock == nil, "Async support for Operation, as implemented, requires the completion block to be left nil.")

@@ -7,12 +7,17 @@ import OperationAwaiting
 
 
 
-class AsyncOperationWithResult : RetryingOperation, HasResult {
+class AsyncOperationWithResult : RetryingOperation, @unchecked Sendable, SendableOperation, HasResult {
 	
 	struct NotFinished : Error {}
 	
 	let destination: String
-	var result: Result<String, Error> = .failure(NotFinished())
+	private var lock = NSLock()
+	private var _result: Result<String, Error> = .failure(NotFinished())
+	var result: Result<String, Error> {
+		get {lock.withLock{ _result }}
+		set {lock.withLock{ _result = newValue }}
+	}
 	
 	init(destination: String) {
 		self.destination = destination
