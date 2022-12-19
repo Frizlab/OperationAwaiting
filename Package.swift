@@ -7,7 +7,7 @@ let package = Package(
 	platforms: [.macOS(.v10_15), .iOS(.v13), .tvOS(.v13), .watchOS(.v6)],
 	products: [.library(name: "OperationAwaiting", targets: ["OperationAwaiting"])],
 	dependencies: [
-		.package(url: "https://github.com/Frizlab/HasResult.git", from: "1.0.0"),
+		.package(url: "https://github.com/Frizlab/HasResult.git", from: "2.0.0"),
 		.package(url: "https://github.com/happn-app/RetryingOperation.git", from: "1.1.7")
 	],
 	targets: [

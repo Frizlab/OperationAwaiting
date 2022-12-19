@@ -21,10 +21,10 @@ public extension SendableOperation {
 
 public extension HasResult where Self : SendableOperation {
 	
-	func startAndGetResult() async throws -> ResultType {
+	func startAndGetResult() async throws -> Success {
 		assert(completionBlock == nil, "Async support for Operation, as implemented, requires the completion block to be left nil.")
 		return try await withTaskCancellationHandler(operation: {
-			try await withCheckedThrowingContinuation{ (continuation: CheckedContinuation<ResultType, Error>) -> Void in
+			try await withCheckedThrowingContinuation{ (continuation: CheckedContinuation<Success, Error>) -> Void in
 				completionBlock = { continuation.resume(with: self.result) }
 				start()
 			}
